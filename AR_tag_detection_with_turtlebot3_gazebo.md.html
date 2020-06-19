@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AR_tag_detection_with_turtlebot3_gazebo.md</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h2 id="installation-of-ros-kinetic-desktop-full-version-from-this-link-httpwiki.ros.orgkineticinstallationubuntu.">Installation of ros-kinetic-desktop-full version from this link <a href="http://wiki.ros.org/kinetic/Installation/Ubuntu">http://wiki.ros.org/kinetic/Installation/Ubuntu</a>.</h2>
+<ul>
+<li>
+<p>Don’t install gazebo from the website, it will wreck the whole setup. With the above desktop-full version it automatically install gazebo7.</p>
+</li>
+<li>
+<h4 id="setting-up-gazebo-environment.">Setting up gazebo environment.</h4>
+<ul>
+<li>
+<p>import the gazibo models to gazebo workspace by cloning the gazebo model database from <a href="https://github.com/osrf/gazebo_models">https://github.com/osrf/gazebo_models</a> and later copy all the models to <code>/home/madhu16/.gazebo/models</code>.</p>
+</li>
+<li>
+<p>Copy the Marker model from given zip file to <code>/home/madhu16/.gazebo/models</code>.</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="files-to-be-replaced-after-creating-the-workspace-check-this-section-after-cloning-all-the-necessary-repos-in-next-section">Files to be replaced after creating the workspace (check this section after cloning all the necessary repos in next section)</h2>
+<ol>
+<li><strong>marker0</strong> folder -&gt; AR Tag converted to gazebo model.</li>
+<li><strong>IndividualMarkersNoKinect.cpp</strong> - Modified file to increase fps.</li>
+<li><strong>turtlebot3_ar.world</strong> - Custom gazebo world made specifically for better background.</li>
+<li><strong>turtlebot3_ar.launch</strong> - Custom launch file for the custom gazebo world.</li>
+<li><strong>turtlebot3_burger.gazebo.xacro</strong> - Modified and given access to camera</li>
+<li><strong>turtlebot3_burger.urdf.xacro</strong>- Modified and given access to camera</li>
+</ol>
+<h2 id="creating-turtlebot3-and-ar-tag-detection-workspace">Creating turtlebot3 and AR Tag detection workspace</h2>
+<ul>
+<li>
+<p>Create a dummy workspace :-</p>
+<p><code>hitech@hitech:~/$ mkdir -p turtlebot_ws/src</code></p>
+<p><code>hitech@hitech:~/$ cd turtlebot_ws</code></p>
+<p><code>hitech@hitech:~/turtlebot_ws$ catkin_make</code></p>
+<p><code>hitech@hitech:~/turtlebot_ws$ cd src</code></p>
+</li>
+<li>
+<p>Clone <strong>turtlebot3</strong> repos and checkout the <strong>kinetic branch</strong>.</p>
+<p><code>hitech@hitech:~/turtlebot_ws/src$ git clone -b kinetic-devel https://github.com/ROBOTIS-GIT/turtlebot3_msgs</code></p>
+<p><code>hitech@hitech:~/turtlebot_ws/src$ git clone -b kinetic-devel https://github.com/ms-iot/turtlebot3_simulations</code></p>
+<p><code>hitech@hitech:~/turtlebot_ws/src$ git clone -b kinetic-devel https://github.com/ms-iot/turtlebot3.git</code></p>
+</li>
+<li>
+<p>Clone <strong>ar_track_alvar repo</strong> for ar tag detection and checkout the <strong>kinetic branch</strong>.</p>
+<p><code>hitech@hitech:~/turtlebot_ws/src$ cd ../../</code></p>
+<p><code>hitech@hitech:~/$ git clone -b kinetic-devel https://github.com/ros-perception/ar_track_alvar.git</code></p>
+<p><code>hitech@hitech:~/$ mv ar_track_alvar/ar_track_alvar ar_track_alvar/ar_track_alvar_msgs turtlebot_ws/src/</code></p>
+</li>
+<li>
+<p>Build the downloaded packages using <strong>catkin build</strong> (or) <strong>catkin_make</strong>.</p>
+<p><code>hitech@hitech:~/turtlebot_ws$ catkin_make</code></p>
+<ul>
+<li>This might take some while, please monitor the system using <strong>System Monitor</strong> software in linux. If the system is stuck, wait for sometime and restart the system and build again with no other processes running.</li>
+</ul>
+</li>
+<li>
+<p>Verify the installation by launching <strong>turtlebot3 node</strong>.</p>
+<p><code>hitech@hitech:~/turtlebot_ws$ roslaunch turtlebot3_gazebo turtlebot3_empty_world.launch</code></p>
+</li>
+<li>
+<p>Check the above section for the list of files to be modified or added.</p>
+</li>
+<li>
+<p>Modifications in ar_track_alvar package for increasing fps of published marker topic :-</p>
+<p>Open <strong>IndividualMarkersNoKinect.cpp</strong> file from <strong>ar_track_alvar/nodes/</strong> folder and edit the <strong>line no 88, 196</strong> to change <strong>1.0</strong> to <strong>0.03</strong> . Go to <strong>line no 277</strong> and change max_frequency parameter to <strong>30.0</strong> . (or you can simply <strong>replace</strong> the whole file with the given modified file)</p>
+</li>
+<li>
+<p>Change the relevent things in turtlebot3 package.</p>
+<ul>
+<li>
+<p>Give access to camera and modify the resolution by replacing the <strong>turtlebot3_burger.gazebo.xacro</strong> and <strong>turtlebot3_burger.urdf.xacro</strong> files with the given modified files.</p>
+</li>
+<li>
+<p>Add the given gazebo world file named <strong>turtlebot3_ar.world</strong> in <strong>turtlebot3_simulations/turtlebot3_gazebo/worlds/</strong>. This is a custom world file that I made specifically for good lighting condition.</p>
+</li>
+<li>
+<p>Add the given launch file named <strong>turtlebot3_ar.launch</strong> in <strong>turtlebot3_simulations/turtlebot3_gazebo/launch/</strong>. This launch file uses the above world file.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Build the workspace finally,<br>
+<code>hitech@hitech:~/turtlebot_ws$ catkin_make</code></p>
+<p><code>hitech@hitech:~/turtlebot_ws/src$</code></p>
+</li>
+</ul>
+<h2 id="do-the-inference">Do the Inference</h2>
+<ul>
+<li>
+<p>Launch turtlebot on gazebo. If you are doing it first time a window will show up and do nothing. wait for some time like 5 mins and restart gazebo.</p>
+<p><code>hitech@hitech:~/turtlebot_ws$ export TURTLEBOT3_MODEL=burger</code></p>
+<p><code>hitech@hitech:~/turtlebot_ws$ source devel/setup.bash</code></p>
+<p><code>hitech@hitech:~/turtlebot_ws$ roslaunch turtlebot3_gazebo turtlebot3_ar.launch</code></p>
+</li>
+<li>
+<p>In another terminal launch teleop functionality,</p>
+<p><code>hitech@hitech:~/turtlebot_ws$ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch</code></p>
+</li>
+<li>
+<p>In another terminal open rqt_image_view and use the teleop functionality to make sure AR Tag is in the field of view of robot. Clicking <code>a</code> can turn the robot arround and get the AT tag in robots FOV.</p>
+<p><code>hitech@hitech:~/turtlebot_ws$ rqt_image_view</code></p>
+</li>
+<li>
+<p>In another terminal, launch the ar_tag_alvar node to detect AR Tags</p>
+<p><code>hitech@hitech:~/turtlebot_ws$ rosed ar_track_alvar pr2_indiv_no_kinect.launch</code></p>
+<ul>
+<li>Change the marker size parameter to <strong>50.0</strong> in pr2_indiv_no_kinect.launch file.</li>
+</ul>
+<p><code>hitech@hitech:~/turtlebot_ws$ roslaunch ar_track_alvar pr2_indiv_no_kinect.launch</code></p>
+</li>
+<li>
+<p>In another terminal open rviz and enable TFs and Marker to visualize</p>
+<p><code>hitech@hitech:~/turtlebot_ws$ rviz</code></p>
+<ul>
+<li>If the global status is not fixed, then change the Fixed frame parameter of Global options.</li>
+</ul>
+</li>
+</ul>
+<h2 id="generating-custom-ar-tag-gazebo-models-optional.">Generating custom AR Tag gazebo models (optional).</h2>
+<ul>
+<li>
+<p>Generate custom AR Tag images from this instructions from here or <a href="http://wiki.ros.org/ar_track_alvar">http://wiki.ros.org/ar_track_alvar</a></p>
+<p><code>hitech@hitech:~/turtlebot_ws$ rosrun ar_track_alvar createMarker</code></p>
+</li>
+<li>
+<p>Generate AR Tag gazebo models from AR Tag images by following this link <a href="https://github.com/mikaelarguedas/gazebo_models">https://github.com/mikaelarguedas/gazebo_models</a></p>
+<ul>
+<li>Follow the readme file of this repo to generate gazebo models of AR tag images.</li>
+</ul>
+</li>
+</ul>
+</div>
+</body>
+
+</html>

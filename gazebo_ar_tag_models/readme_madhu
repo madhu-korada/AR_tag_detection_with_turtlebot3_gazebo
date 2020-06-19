@@ -1,0 +1,5 @@
+https://github.com/mikaelarguedas/gazebo_models
+
+python3 generate_markers_model.py -i /home/madhu16/work/gazebo_models/ar_tags/images -g /home/madhu16/work/gazebo_models/ar_tags/models -s 1000 -w 500
+
+
