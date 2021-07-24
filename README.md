@@ -5,32 +5,32 @@
 - Launch turtlebot on gazebo. If you are doing it first time a window will show up and do nothing. wait for some time like 5 mins and restart gazebo. 
 
 
-	```hitech@hitech:~/turtlebot_ws$ export TURTLEBOT3_MODEL=burger ```
+	```madhu@madhu:~/turtlebot_ws$ export TURTLEBOT3_MODEL=burger ```
 	
-	```hitech@hitech:~/turtlebot_ws$ source devel/setup.bash ```
+	```madhu@madhu:~/turtlebot_ws$ source devel/setup.bash ```
 	
-	```hitech@hitech:~/turtlebot_ws$ roslaunch turtlebot3_gazebo turtlebot3_ar.launch```
+	```madhu@madhu:~/turtlebot_ws$ roslaunch turtlebot3_gazebo turtlebot3_ar.launch```
 
 - In another terminal launch teleop functionality,
 
-	```hitech@hitech:~/turtlebot_ws$ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch```
+	```madhu@madhu:~/turtlebot_ws$ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch```
 
 - In another terminal open rqt_image_view and use the teleop functionality to make sure AR Tag is in the field of view of robot. Clicking ```a``` can turn the robot arround and get the AT tag in robots FOV. 
 
-	```hitech@hitech:~/turtlebot_ws$ rqt_image_view ```
+	```madhu@madhu:~/turtlebot_ws$ rqt_image_view ```
 
 
 - In another terminal, launch the ar_tag_alvar node to detect AR Tags
 	
-	```hitech@hitech:~/turtlebot_ws$ rosed ar_track_alvar pr2_indiv_no_kinect.launch ```
+	```madhu@madhu:~/turtlebot_ws$ rosed ar_track_alvar pr2_indiv_no_kinect.launch ```
 
 	- Change the marker size parameter to **50.0** in pr2_indiv_no_kinect.launch file.
 	
-	```hitech@hitech:~/turtlebot_ws$ roslaunch ar_track_alvar pr2_indiv_no_kinect.launch ```
+	```madhu@madhu:~/turtlebot_ws$ roslaunch ar_track_alvar pr2_indiv_no_kinect.launch ```
 
 - In another terminal open rviz and enable TFs and Marker to visualize
 
-	```hitech@hitech:~/turtlebot_ws$ rviz ```
+	```madhu@madhu:~/turtlebot_ws$ rviz ```
 	
 	- If the global status is not fixed, then change the Fixed frame parameter of Global options. 
 
@@ -59,42 +59,42 @@
 
 - Create a dummy workspace :- 
 
-	```hitech@hitech:~/$ mkdir -p turtlebot_ws/src```
+	```madhu@madhu:~/$ mkdir -p turtlebot_ws/src```
 
-	```hitech@hitech:~/$ cd turtlebot_ws```
+	```madhu@madhu:~/$ cd turtlebot_ws```
 
-	```hitech@hitech:~/turtlebot_ws$ catkin_make```
+	```madhu@madhu:~/turtlebot_ws$ catkin_make```
 
-	```hitech@hitech:~/turtlebot_ws$ cd src```
+	```madhu@madhu:~/turtlebot_ws$ cd src```
 
 
 - Clone **turtlebot3** repos and checkout the **kinetic branch**.
 
-	```hitech@hitech:~/turtlebot_ws/src$ git clone -b kinetic-devel https://github.com/ROBOTIS-GIT/turtlebot3_msgs```
+	```madhu@madhu:~/turtlebot_ws/src$ git clone -b kinetic-devel https://github.com/ROBOTIS-GIT/turtlebot3_msgs```
 	
-	```hitech@hitech:~/turtlebot_ws/src$ git clone -b kinetic-devel https://github.com/ms-iot/turtlebot3_simulations```
+	```madhu@madhu:~/turtlebot_ws/src$ git clone -b kinetic-devel https://github.com/ms-iot/turtlebot3_simulations```
 	
-	```hitech@hitech:~/turtlebot_ws/src$ git clone -b kinetic-devel https://github.com/ms-iot/turtlebot3.git ```
+	```madhu@madhu:~/turtlebot_ws/src$ git clone -b kinetic-devel https://github.com/ms-iot/turtlebot3.git ```
 
 
 - Clone **ar_track_alvar repo** for ar tag detection and checkout the **kinetic branch**.
 
-	```hitech@hitech:~/turtlebot_ws/src$ cd ../../```
+	```madhu@madhu:~/turtlebot_ws/src$ cd ../../```
 	
-	```hitech@hitech:~/$ git clone -b kinetic-devel https://github.com/ros-perception/ar_track_alvar.git```
+	```madhu@madhu:~/$ git clone -b kinetic-devel https://github.com/ros-perception/ar_track_alvar.git```
 	
-	```hitech@hitech:~/$ mv ar_track_alvar/ar_track_alvar ar_track_alvar/ar_track_alvar_msgs turtlebot_ws/src/```
+	```madhu@madhu:~/$ mv ar_track_alvar/ar_track_alvar ar_track_alvar/ar_track_alvar_msgs turtlebot_ws/src/```
 
 
 - Build the downloaded packages using **catkin build** (or) **catkin_make**. 
 
-	```hitech@hitech:~/turtlebot_ws$ catkin_make```
+	```madhu@madhu:~/turtlebot_ws$ catkin_make```
 
 	- This might take some while, please monitor the system using **System Monitor** software in linux. If the system is stuck, wait for sometime and restart the system and build again with no other processes running.
 
 - Verify the installation by launching **turtlebot3 node**. 
 
-	```hitech@hitech:~/turtlebot_ws$ roslaunch turtlebot3_gazebo turtlebot3_empty_world.launch ```
+	```madhu@madhu:~/turtlebot_ws$ roslaunch turtlebot3_gazebo turtlebot3_empty_world.launch ```
 
 - Check the above section for the list of files to be modified or added.
 
@@ -112,42 +112,42 @@
 
 
 - Build the workspace finally,
-	```hitech@hitech:~/turtlebot_ws$ catkin_make```
+	```madhu@madhu:~/turtlebot_ws$ catkin_make```
 
 
-	```hitech@hitech:~/turtlebot_ws/src$ ```
+	```madhu@madhu:~/turtlebot_ws/src$ ```
 
 ## Do the Inference
 
 - Launch turtlebot on gazebo. If you are doing it first time a window will show up and do nothing. wait for some time like 5 mins and restart gazebo. 
 
 
-	```hitech@hitech:~/turtlebot_ws$ export TURTLEBOT3_MODEL=burger ```
+	```madhu@madhu:~/turtlebot_ws$ export TURTLEBOT3_MODEL=burger ```
 	
-	```hitech@hitech:~/turtlebot_ws$ source devel/setup.bash ```
+	```madhu@madhu:~/turtlebot_ws$ source devel/setup.bash ```
 	
-	```hitech@hitech:~/turtlebot_ws$ roslaunch turtlebot3_gazebo turtlebot3_ar.launch```
+	```madhu@madhu:~/turtlebot_ws$ roslaunch turtlebot3_gazebo turtlebot3_ar.launch```
 
 - In another terminal launch teleop functionality,
 
-	```hitech@hitech:~/turtlebot_ws$ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch```
+	```madhu@madhu:~/turtlebot_ws$ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch```
 
 - In another terminal open rqt_image_view and use the teleop functionality to make sure AR Tag is in the field of view of robot. Clicking ```a``` can turn the robot arround and get the AT tag in robots FOV. 
 
-	```hitech@hitech:~/turtlebot_ws$ rqt_image_view ```
+	```madhu@madhu:~/turtlebot_ws$ rqt_image_view ```
 
 
 - In another terminal, launch the ar_tag_alvar node to detect AR Tags
 	
-	```hitech@hitech:~/turtlebot_ws$ rosed ar_track_alvar pr2_indiv_no_kinect.launch ```
+	```madhu@madhu:~/turtlebot_ws$ rosed ar_track_alvar pr2_indiv_no_kinect.launch ```
 
 	- Change the marker size parameter to **50.0** in pr2_indiv_no_kinect.launch file.
 	
-	```hitech@hitech:~/turtlebot_ws$ roslaunch ar_track_alvar pr2_indiv_no_kinect.launch ```
+	```madhu@madhu:~/turtlebot_ws$ roslaunch ar_track_alvar pr2_indiv_no_kinect.launch ```
 
 - In another terminal open rviz and enable TFs and Marker to visualize
 
-	```hitech@hitech:~/turtlebot_ws$ rviz ```
+	```madhu@madhu:~/turtlebot_ws$ rviz ```
 	
 	- If the global status is not fixed, then change the Fixed frame parameter of Global options. 
 
@@ -155,7 +155,7 @@
 
 - Generate custom AR Tag images from this instructions from here or <http://wiki.ros.org/ar_track_alvar>
 	
-	```hitech@hitech:~/turtlebot_ws$ rosrun ar_track_alvar createMarker ```
+	```madhu@madhu:~/turtlebot_ws$ rosrun ar_track_alvar createMarker ```
 	
 - Generate AR Tag gazebo models from AR Tag images by following this link <https://github.com/mikaelarguedas/gazebo_models>
 	
